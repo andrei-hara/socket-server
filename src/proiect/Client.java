@@ -1,17 +1,16 @@
 package proiect;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class Client {
 
     // initializare socket si input/output streams
 
     private Socket socket = null;
-    private DataInputStream input = null;
+    private BufferedReader input = null;
     private DataOutputStream out = null;
 
     // constructor pt IP Adress si port
@@ -25,7 +24,7 @@ public class Client {
             System.out.println("Connected");
 
             //preluare input din terminal
-            input = new DataInputStream(System.in);
+             input = new BufferedReader(new InputStreamReader(System.in));
 
             //transmite output catre socket
             out = new DataOutputStream(socket.getOutputStream());
@@ -66,7 +65,8 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        Client client = new Client("127.0.0.1", 50000);
+
+        Client client = new Client("127.0.0.1", 5000);
     }
 
 }
