@@ -52,7 +52,19 @@ public class Server {
 
     public static void main(String[] args) {
 
-        Server Server = new Server(5000);
+        int port = 0;
+        System.out.println("portul: " + args[0]);
+
+        if (args.length > 0) {
+            try {
+                port = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                System.err.println("Argument" + args[0] + " must be an integer.");
+                System.exit(1);
+            }
+        }
+
+        Server Server = new Server(port);
     }
 
 

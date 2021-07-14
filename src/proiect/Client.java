@@ -66,7 +66,20 @@ public class Client {
 
     public static void main(String[] args) {
 
-        Client client = new Client("127.0.0.1", 5000);
+        int port = 0;
+        System.out.println("portul: " + args[0]);
+
+        if (args.length > 0) {
+            try {
+                port = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                System.err.println("Argument" + args[0] + " must be an integer.");
+                System.exit(1);
+            }
+        }
+
+
+        Client client = new Client("127.0.0.1", port );
     }
 
 }
