@@ -66,8 +66,8 @@ public class Client {
 
     public static void main(String[] args) {
 
-        int port = 0;
-        System.out.println("portul: " + args[0]);
+        int port = 2250;
+        System.out.println("port: " + args[0]);
 
         if (args.length > 0) {
             try {
