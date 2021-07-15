@@ -64,66 +64,6 @@ public class Server {
         }
     }
 
-    //ClientHandler pentru threaduri
-
-    class ClientHandler extends Thread
-    {
-        private DataInputStream in = null;
-        private DataOutputStream out = null;
-        private Socket s = null;
-        DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
-        DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
-
-        //Constructor
-
-        public ClientHandler(Socket s ,DataInputStream in ,DataOutputStream out){
-            this.s = s;
-            this.in = in;
-            this.out = out;
-        }
-
-        @Override
-        public void run(){
-            String received;
-            String toreturn;
-
-            while(true)
-            {
-                try {
-                    // dialog cu utilizator
-                    out.writeUTF("Type Exit to terminate connection or anything else to display time and date");
-
-                    received = in.readUTF();
-
-                    if(received.equals("Exit"))
-                    {
-                        System.out.println("Client " + this.s + " sends exit...");
-                        System.out.println("Closing this connection.");
-                        this.s.close();
-                        System.out.println("Connection closed");
-                        break;
-                    }
-
-                    //creare obiect Date
-                    Date date = new Date();
-
-                    toreturn = fordate.format(date) + fortime.format(date);
-                    out.writeUTF(toreturn);
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            try {
-                this.in.close();
-                this.out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
 
     public static void main(String[] args) {
