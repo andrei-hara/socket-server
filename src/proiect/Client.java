@@ -10,24 +10,58 @@ public class Client {
     // initializare socket si input/output streams
 
     private Socket socket = null;
-    private BufferedReader input = null;
+    private DataInputStream in = null;
     private DataOutputStream out = null;
+    private Scanner scn = null;
 
     // constructor pt IP Adress si port
 
-    public Client (String address, int port)
-    {
+    public Client (String address, int port) {
         // initializare conexiune
 
         try {
             socket = new Socket(address, port);
             System.out.println("Connected");
+            }
+        catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void init(){
+
+        try {
 
             //preluare input din terminal
-             input = new BufferedReader(new InputStreamReader(System.in));
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
-            //transmite output catre socket
+            //transmitere output catre socket
             out = new DataOutputStream(socket.getOutputStream());
+
+            // scanner pt citire linii
+            scn = new Scanner(System.in);
+
+            // exchange intre client si clienthandler
+            while (true) {
+                System.out.println(in.readUTF());
+                String tosend = scn.nextLine();
+                out.writeUTF(tosend);
+
+//                 If client sends exit,close this connection
+//                 and then break from the while loop
+                if(tosend.equals("Exit"))
+                {
+                    System.out.println("Closing this connection : " + socket);
+                    socket.close();
+                    System.out.println("Connection closed");
+                    break;
+                }
+
+                // printare data + timp
+                String received = in.readUTF();
+                System.out.println(received);
+            }
         }
         catch (UnknownHostException e) {
             e.printStackTrace();
@@ -36,32 +70,18 @@ public class Client {
             i.printStackTrace();
         }
 
-        // String pt a citi mesajul din tabul pt input
-
-        String line = "";
-
-        // Citeste pana "Over" apare pe ecran
-
-        while(!line.equals("Over"))
-        {
-            try {
-                line=input.readLine();
-                out.writeUTF(line);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
         //inchidere conexiune
         try {
-            input.close();
+            in.close();
             out.close();
             socket.close();
+            scn.close();
         }
-         catch (IOException e) {
+        catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
     public static void main(String[] args) {
@@ -69,6 +89,7 @@ public class Client {
         int port = 2250;
         System.out.println("port: " + args[0]);
 
+        //preluare port din linie de comanda
         if (args.length > 0) {
             try {
                 port = Integer.parseInt(args[0]);
@@ -79,7 +100,9 @@ public class Client {
         }
 
 
-        Client client = new Client("127.0.0.1", port );
+        Client client = new Client("127.0.0.1", port);
+        client.init();
+
     }
 
 }
