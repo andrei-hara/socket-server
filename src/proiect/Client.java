@@ -18,7 +18,6 @@ public class Client {
 
     public Client (String address, int port) {
         // initializare conexiune
-
         try {
             socket = new Socket(address, port);
             System.out.println("Connected");
@@ -30,9 +29,7 @@ public class Client {
         }
     }
     public void init(){
-
         try {
-
             //preluare input din terminal
             in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 
@@ -99,10 +96,8 @@ public class Client {
             }
         }
 
-
         Client client = new Client("127.0.0.1", port);
         client.init();
-
     }
 
 }

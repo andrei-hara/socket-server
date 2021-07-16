@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Server {
-
     private Socket socket = null;
     private ServerSocket server = null;
     private DataInputStream in = null;
@@ -18,7 +17,6 @@ public class Server {
     // constructor cu port
     public Server(int port)
     {
-
         try {
             server = new ServerSocket(port);
 
@@ -26,8 +24,6 @@ public class Server {
         catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void start()
@@ -40,7 +36,6 @@ public class Server {
 
                 System.out.println("Waiting for client ... ");
 
-
                 socket = server.accept();
                 System.out.println("A new Client is accepted :" + socket);
 
@@ -50,14 +45,10 @@ public class Server {
                 System.out.println("Assigning new thread for this client");
 
                 // obiect thread nou
-
                 Thread t = new ClientHandler(socket, in, out);
 
                 // exec thread
-
                 t.start();
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -80,10 +71,7 @@ public class Server {
                 System.exit(1);
             }
         }
-
         Server server = new Server(port);
         server.start();
     }
-
-
 }

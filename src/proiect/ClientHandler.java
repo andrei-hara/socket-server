@@ -8,28 +8,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ClientHandler extends Thread{
+public class ClientHandler extends Thread {
 
     private DataInputStream in = null;
     private DataOutputStream out = null;
     private Socket s = null;
-    //DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
-    //DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
 
     //Constructor
-
     public ClientHandler(Socket s ,DataInputStream in ,DataOutputStream out){
         this.s = s;
         this.in = in;
         this.out = out;
-
     }
 
     @Override
     public void run(){
         String received;
-        String toreturn;
-        Data obj = new Data();
+        show_date d = new show_date();
 
         while(true)
         {
@@ -48,7 +43,7 @@ public class ClientHandler extends Thread{
                     break;
                 }
 
-                obj.runData();
+                d.runDate(out);
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -60,29 +55,6 @@ public class ClientHandler extends Thread{
             this.out.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public class Data
-    {
-        DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
-        DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
-
-        public void runData(){
-
-            String toreturn;
-
-            //creare obiect Date
-            Date date = new Date();
-
-            toreturn = fordate.format(date) + fortime.format(date);
-            try {
-                out.writeUTF(toreturn);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 }
