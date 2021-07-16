@@ -1,5 +1,7 @@
 package proiect;
 
+import com.sun.deploy.security.SelectableSecurityManager;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -25,7 +27,7 @@ public class ClientHandler extends Thread {
     public void run(){
         String received;
         showdate d = new showdate();
-        serverinfo s = new serverinfo();
+        serverInfo s = new serverInfo();
 
         while(true)
         {
@@ -35,25 +37,21 @@ public class ClientHandler extends Thread {
 
                 received = in.readUTF();
 
-                if(received.equals("Exit"))
-                {
+                if(received.equals("Exit")) {
                     System.out.println("Client " + this.s + " sends exit...");
                     System.out.println("Closing this connection.");
                     this.s.close();
                     System.out.println("Connection closed");
                     break;
                 }
-
                 switch(received){
                     case "Date":
                     d.runDate(out);
                     break;
                     case "Info" :
-                        s.run_server_info(out);
+                        s.runServerInfo(out);
                         break;
-
                 }
-
             }
             catch (IOException e) {
                 e.printStackTrace();
