@@ -24,13 +24,14 @@ public class ClientHandler extends Thread {
     @Override
     public void run(){
         String received;
-        show_date d = new show_date();
+        showdate d = new showdate();
+        serverinfo s = new serverinfo();
 
         while(true)
         {
             try {
                 // dialog cu utilizator
-                out.writeUTF("Type Exit to terminate connection or anything else to display time and date");
+                out.writeUTF("Type Exit to terminate connection / Date to display time and date / Info to display server Info");
 
                 received = in.readUTF();
 
@@ -43,7 +44,16 @@ public class ClientHandler extends Thread {
                     break;
                 }
 
-                d.runDate(out);
+                switch(received){
+                    case "Date":
+                    d.runDate(out);
+                    break;
+                    case "Info" :
+                        s.run_server_info(out);
+                        break;
+
+                }
+
             }
             catch (IOException e) {
                 e.printStackTrace();

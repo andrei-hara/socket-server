@@ -6,22 +6,19 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class show_date {
-
-
-    DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
-    DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
-
+public class showdate {
+    DateFormat forDate = new SimpleDateFormat("yyyy/MM/dd");
+    DateFormat forTime = new SimpleDateFormat("hh:mm:ss");
     public void runDate(DataOutputStream out){
 
-        String toreturn;
+        String toReturn;
 
         //creare obiect Date
         Date date = new Date();
 
-        toreturn = fordate.format(date) + fortime.format(date);
+        toReturn = forDate.format(date) + forTime.format(date);
         try {
-            out.writeUTF(toreturn);
+            out.writeUTF(toReturn);
         }
         catch (IOException e) {
             e.printStackTrace();
