@@ -6,7 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class showdate {
+public class ShowDate {
     DateFormat forDate = new SimpleDateFormat("yyyy/MM/dd");
     DateFormat forTime = new SimpleDateFormat("hh:mm:ss");
     public void runDate(DataOutputStream out){

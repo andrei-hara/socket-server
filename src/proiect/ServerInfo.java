@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Properties;
 
-public class serverInfo {
+public class ServerInfo {
 
     String osName = System.getProperty("os.name");
     String dataModel = System.getProperty("sun.arch.data.model");

@@ -26,8 +26,8 @@ public class ClientHandler extends Thread {
     @Override
     public void run(){
         String received;
-        showdate d = new showdate();
-        serverInfo s = new serverInfo();
+        ShowDate d = new ShowDate();
+        ServerInfo s = new ServerInfo();
 
         while(true)
         {
