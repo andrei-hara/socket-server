@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Map;
-
 public class ServerInfo {
     //String osName = System.getProperty("os.name");
     //String dataModel = System.getProperty("sun.arch.data.model");
@@ -22,7 +20,6 @@ public class ServerInfo {
                 out.writeUTF(line);
             }
             pb.wait();
-
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
