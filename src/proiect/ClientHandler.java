@@ -28,12 +28,13 @@ public class ClientHandler extends Thread {
         String received;
         ShowDate d = new ShowDate();
         ServerInfo s = new ServerInfo();
+        WeatherInfo w = new WeatherInfo();
 
         while(true)
         {
             try {
                 // dialog cu utilizator
-                out.writeUTF("Type Exit to terminate connection / Date to display time and date / Info to display server Info");
+                out.writeUTF("Type Exit to terminate connection / Date to display time and date / Info to display server Info / Weather to display the weather at a specified location: ");
 
                 received = in.readUTF();
 
@@ -45,11 +46,14 @@ public class ClientHandler extends Thread {
                     break;
                 }
                 switch(received){
-                    case "Date":
+                    case "Date" :
                     d.runDate(out);
                     break;
                     case "Info" :
                         s.runServerInfo(out);
+                        break;
+                    case "Weather" :
+                            w.getWeather(out , in);
                         break;
                 }
             }
