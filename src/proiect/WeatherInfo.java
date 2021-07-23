@@ -13,10 +13,10 @@ public class WeatherInfo {
     public void getWeather(DataOutputStream out, DataInputStream in)  {
         try {
             // variabila pentru locatie
-            String loc = "Bucharest";
+            String loc;
             // Introducere locatie
-//            out.writeUTF("Enter location: ");
-//            loc = in.readUTF();
+            out.writeUTF("Enter location: ");
+            loc = in.readUTF();
 
             // HTTP Request
             URL url = new URL("https://www.metaweather.com/api/location/search/?query=" + URLEncoder.encode(loc, String.valueOf(StandardCharsets.UTF_8)));

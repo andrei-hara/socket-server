@@ -54,9 +54,6 @@ public class Client {
                     System.out.println("Connection closed");
                     break;
                 }
-
-                String received = in.readUTF();
-                System.out.println(received);
             }
         }
         catch (UnknownHostException e) {
