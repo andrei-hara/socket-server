@@ -55,7 +55,6 @@ public class Client {
                     break;
                 }
 
-                // printare data + timp
                 String received = in.readUTF();
                 System.out.println(received);
             }

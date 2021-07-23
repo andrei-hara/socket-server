@@ -34,7 +34,7 @@ public class ClientHandler extends Thread {
         {
             try {
                 // dialog cu utilizator
-                out.writeUTF("Date --> display time and date\n" + "Info --> display server info\n" + "Weather --> display the weather at a specified location\n" + "Exit --> terminate the connection");
+                out.writeUTF("Date --> display time and date\n Info --> display server info\n Weather --> display the weather at a specified location\n Exit --> terminate the connection");
                 received = in.readUTF();
 
                 if(received.equals("Exit")) {
