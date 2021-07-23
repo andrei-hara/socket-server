@@ -34,8 +34,7 @@ public class ClientHandler extends Thread {
         {
             try {
                 // dialog cu utilizator
-                out.writeUTF("Type Exit to terminate connection / Date to display time and date / Info to display server Info / Weather to display the weather at a specified location: ");
-
+                out.writeUTF("Date --> display time and date\n" + "Info --> display server info\n" + "Weather --> display the weather at a specified location\n" + "Exit --> terminate the connection");
                 received = in.readUTF();
 
                 if(received.equals("Exit")) {
@@ -46,14 +45,14 @@ public class ClientHandler extends Thread {
                     break;
                 }
                 switch(received){
-                    case "Date" :
+                    case "Date":
                     d.runDate(out);
                     break;
-                    case "Info" :
+                    case "Info":
                         s.runServerInfo(out);
                         break;
-                    case "Weather" :
-                            w.getWeather(out , in);
+                    case "Weather":
+                            w.getWeather(out, in);
                         break;
                 }
             }
