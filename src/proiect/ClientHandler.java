@@ -17,7 +17,7 @@ public class ClientHandler extends Thread {
     private Socket s = null;
 
     //Constructor
-    public ClientHandler(Socket s ,DataInputStream in ,DataOutputStream out){
+    public ClientHandler(Socket s ,DataInputStream in ,DataOutputStream out) {
         this.s = s;
         this.in = in;
         this.out = out;
@@ -29,12 +29,14 @@ public class ClientHandler extends Thread {
         ShowDate d = new ShowDate();
         ServerInfo s = new ServerInfo();
         WeatherInfo w = new WeatherInfo();
+        Unzip u = new Unzip();
+        Utils c = new Utils();
 
         while(true)
         {
             try {
                 // dialog cu utilizator
-                out.writeUTF("Date --> display time and date\n Info --> display server info\n Weather --> display the weather at a specified location\n Exit --> terminate the connection");
+                out.writeUTF("Date --> display time and date\n Info --> display server info\n Weather --> display the weather at a specified location\n  Compile --> compile C++ files\n Run -->run C++ file \nExit --> terminate the connection");
                 received = in.readUTF();
 
                 if(received.equals("Exit")) {
@@ -46,14 +48,22 @@ public class ClientHandler extends Thread {
                 }
                 switch(received){
                     case "Date":
-                    d.runDate(out);
-                    break;
+                            d.runDate(out);
+                            break;
                     case "Info":
-                        s.runServerInfo(out);
-                        break;
+                            s.runServerInfo(out);
+                            break;
                     case "Weather":
                             w.getWeather(out, in);
-                        break;
+                            break;
+                    case "Compile":
+                            u.unzipFct(out, in);
+                            c.compileCode(out);
+                            c.linkEditCode();
+                            break;
+                    case "Run":
+                            c.runCode(out);
+                            break;
                 }
             }
             catch (IOException e) {
