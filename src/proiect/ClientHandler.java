@@ -29,12 +29,13 @@ public class ClientHandler extends Thread {
         ShowDate d = new ShowDate();
         ServerInfo s = new ServerInfo();
         WeatherInfo w = new WeatherInfo();
+        Utils t = new Utils();
 
         while(true)
         {
             try {
                 // dialog cu utilizator
-                out.writeUTF("Date --> display time and date\n Info --> display server info\n Weather --> display the weather at a specified location\n Exit --> terminate the connection");
+                out.writeUTF("Date --> display time and date\n Info --> display server info\n Weather --> display the weather at a specified location\n Compile --> Compile C++ code\n Run --> Run C++ Code\nExit --> terminate the connection");
                 received = in.readUTF();
 
                 if(received.equals("Exit")) {
@@ -53,6 +54,15 @@ public class ClientHandler extends Thread {
                         break;
                     case "Weather":
                             w.getWeather(out, in);
+                        break;
+                    case "Compile":
+                        t.readZipPath(out, in);
+                        t.compileCode(out);
+                        t.linkEditCode();
+                        break;
+                    case "Run":
+                        t.executeCode(out);
+                        t.removeCompfiles();
                         break;
                 }
             }

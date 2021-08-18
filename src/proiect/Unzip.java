@@ -12,24 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Unzip {
-    public void unzipFct(DataOutputStream out, DataInputStream in) {
-        try {
-
-            // Introducere path Zip
-            out.writeUTF("Enter the ZIP archive path: ");
-            String fileZip = in.readUTF();
-            // path pentru unzip
-            String destDir = "/home/andrei/Desktop/app-java_server/unzip";
-            // functie pentru extragere zip
-            extractZip(fileZip, destDir);
-            System.out.println("Unzipped successful!");
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void extractZip(String zipFilePath, String extractDirectory) {
         InputStream inputStream = null;
         try {
@@ -56,9 +38,9 @@ public class Unzip {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error, no path found: "); e.getMessage();
         } catch (ArchiveException e) {
-            e.printStackTrace();
+            System.err.println("Error extracting archive: "); e.getMessage();
         }
     }
 }
