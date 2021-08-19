@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Unzip {
-    public void extractZip(String zipFilePath, String extractDirectory) {
+    public void extractZip(String zipFilePath, String extractDirectory, DataOutputStream out) {
         InputStream inputStream = null;
         try {
             Path filePath = Paths.get(zipFilePath);
@@ -38,9 +38,17 @@ public class Unzip {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error, no path found: "); e.getMessage();
+            try {
+                out.writeUTF("Error, no path found: " + e.getMessage());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         } catch (ArchiveException e) {
-            System.err.println("Error extracting archive: "); e.getMessage();
+            try {
+                out.writeUTF("Error extracting archive: " + e.getMessage());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 }

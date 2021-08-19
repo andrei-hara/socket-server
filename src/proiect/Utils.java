@@ -57,7 +57,7 @@ public class Utils {
             e.printStackTrace();
         }
     }
-    
+
     public void readZipPath(DataOutputStream out, DataInputStream in) {
         try {
             // creare obiect de tip Unzip
@@ -68,13 +68,10 @@ public class Utils {
             // path pentru unzip
               String destDir = "/tmp/unzip";
             // functie pentru extragere zip
-             u.extractZip(fileZip, destDir);
+             u.extractZip(fileZip, destDir, out);
             System.out.println("Unzipped successful!");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
-
-
-
