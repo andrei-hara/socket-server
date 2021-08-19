@@ -20,6 +20,7 @@ public class Unzip {
             ArchiveStreamFactory archiveStreamFactory = new ArchiveStreamFactory();
             ArchiveInputStream archiveInputStream = archiveStreamFactory.createArchiveInputStream(ArchiveStreamFactory.ZIP, inputStream);
             ArchiveEntry archiveEntry = null;
+
             while ((archiveEntry = archiveInputStream.getNextEntry()) != null) {
                 Path path = Paths.get(extractDirectory, archiveEntry.getName());
                 File file = path.toFile();
@@ -29,6 +30,7 @@ public class Unzip {
                     }
                 } else {
                     File parent = file.getParentFile();
+
                     if (!parent.isDirectory()) {
                         parent.mkdirs();
                     }
@@ -38,6 +40,6 @@ public class Unzip {
                 }
             }
         } finally {
-        }
+        } 
     }
 }

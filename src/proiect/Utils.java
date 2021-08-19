@@ -1,5 +1,6 @@
 package proiect;
 
+
 import org.apache.commons.compress.archivers.ArchiveException;
 
 import java.io.*;
@@ -10,7 +11,6 @@ public class Utils {
         try {
             // proces pentru compilare (folosind shell bash + precizare director de lucru)
             Process compile = new ProcessBuilder("bash", "-c", "g++ -c -g *.cpp").directory(new File("/tmp/unzip").getAbsoluteFile()).start();
-
             compile.waitFor();
             // exit status - codul pentru eroare
             int exitStatus = compile.exitValue();
@@ -23,13 +23,13 @@ public class Utils {
                 }
             }
             compile.destroy();
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
+
 
     public void removeCompfiles() {
         try {

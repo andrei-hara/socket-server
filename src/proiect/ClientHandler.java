@@ -17,7 +17,7 @@ public class ClientHandler extends Thread {
     private Socket s = null;
 
     //Constructor
-    public ClientHandler(Socket s ,DataInputStream in ,DataOutputStream out){
+    public ClientHandler(Socket s ,DataInputStream in ,DataOutputStream out) {
         this.s = s;
         this.in = in;
         this.out = out;
@@ -35,6 +35,7 @@ public class ClientHandler extends Thread {
         {
             try {
                 // dialog cu utilizator
+
                 out.writeUTF("Date --> display time and date\n Info --> display server info\n Weather --> display the weather at a specified location\n Compile --> Compile C++ code\n Run --> Run C++ Code\nExit --> terminate the connection");
                 received = in.readUTF();
 
@@ -47,11 +48,11 @@ public class ClientHandler extends Thread {
                 }
                 switch(received){
                     case "Date":
-                    d.runDate(out);
-                    break;
+                            d.runDate(out);
+                            break;
                     case "Info":
-                        s.runServerInfo(out);
-                        break;
+                            s.runServerInfo(out);
+                            break;
                     case "Weather":
                             w.getWeather(out, in);
                         break;

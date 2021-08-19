@@ -30,7 +30,6 @@ public class Server {
     {
         while (true) {
 
-            Socket socket = null;
             try {
                 System.out.println("Server started");
 
@@ -54,8 +53,6 @@ public class Server {
             }
         }
     }
-
-
 
     public static void main(String[] args) {
 

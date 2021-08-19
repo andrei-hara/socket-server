@@ -19,8 +19,8 @@ public class ServerInfo {
             while ((line = in.readLine())!= null){
                 out.writeUTF(line);
             }
-            pb.wait();
-        } catch (IOException | InterruptedException e) {
+            pb.destroy();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

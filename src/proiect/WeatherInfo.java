@@ -13,7 +13,7 @@ public class WeatherInfo {
     public void getWeather(DataOutputStream out, DataInputStream in)  {
         try {
             // variabila pentru locatie
-            String loc;
+            String loc ;
             // Introducere locatie
             out.writeUTF("Enter location: ");
             loc = in.readUTF();
