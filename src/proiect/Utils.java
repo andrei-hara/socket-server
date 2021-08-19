@@ -1,5 +1,7 @@
 package proiect;
 
+import org.apache.commons.compress.archivers.ArchiveException;
+
 import java.io.*;
 import java.nio.file.Path;
 
@@ -68,10 +70,20 @@ public class Utils {
             // path pentru unzip
               String destDir = "/tmp/unzip";
             // functie pentru extragere zip
-             u.extractZip(fileZip, destDir, out);
+             u.extractZip(fileZip, destDir);
             System.out.println("Unzipped successful!");
         } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                out.writeUTF("Zip path " + e.getMessage() + " not found");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        } catch (ArchiveException e) {
+            try {
+                out.writeUTF("Error extracting" + e.getMessage() + "archive");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 }
