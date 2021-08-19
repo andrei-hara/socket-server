@@ -1,15 +1,16 @@
 package proiect;
 
+
+import org.apache.commons.compress.archivers.ArchiveException;
+
 import java.io.*;
 import java.nio.file.Path;
 
 public class Utils {
-
     public void compileCode(DataOutputStream out) {
         try {
             // proces pentru compilare (folosind shell bash + precizare director de lucru)
-            Process compile = new ProcessBuilder("bash", "-c", "g++ -c -g *.cpp").directory(new File("/home/andrei/Desktop/app-java_server/unzip").getAbsoluteFile()).start();
-
+            Process compile = new ProcessBuilder("bash", "-c", "g++ -c -g *.cpp").directory(new File("/tmp/unzip").getAbsoluteFile()).start();
             compile.waitFor();
             // exit status - codul pentru eroare
             int exitStatus = compile.exitValue();
@@ -29,17 +30,26 @@ public class Utils {
         }
     }
 
-    public void linkEditCode(){
+
+    public void removeCompfiles() {
         try {
-            Process linkEdit = new ProcessBuilder("bash", "-c", "g++ -g -o Program main.o").directory(new File("/home/andrei/Desktop/app-java_server/unzip").getAbsoluteFile()).start();
+            Process remove = new ProcessBuilder("bash", "-c", "rm *.cpp *.h *.o Program").directory(new File("/tmp/unzip").getAbsoluteFile()).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void runCode (DataOutputStream out){
+    public void linkEditCode(){
         try {
-            Process execute = new ProcessBuilder( "./Program").directory(new File("/home/andrei/Desktop/app-java_server/unzip").getAbsoluteFile()).start();
+            Process linkEdit = new ProcessBuilder("bash", "-c", "g++ -g -o Program main.o").directory(new File("/tmp/unzip").getAbsoluteFile()).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void executeCode(DataOutputStream out) {
+        try {
+            Process execute = new ProcessBuilder( "./Program").directory(new File("/tmp/unzip").getAbsoluteFile()).start();
             BufferedReader in = new BufferedReader(new InputStreamReader(execute.getInputStream()));
             String line;
             while((line =in.readLine()) != null){
@@ -49,5 +59,31 @@ public class Utils {
             e.printStackTrace();
         }
     }
-}
 
+    public void readZipPath(DataOutputStream out, DataInputStream in) {
+        try {
+            // creare obiect de tip Unzip
+            Unzip u = new Unzip();
+            // Introducere path Zip
+            out.writeUTF("Enter the ZIP archive path: ");
+            String fileZip = in.readUTF();
+            // path pentru unzip
+              String destDir = "/tmp/unzip";
+            // functie pentru extragere zip
+             u.extractZip(fileZip, destDir);
+            System.out.println("Unzipped successful!");
+        } catch (IOException e) {
+            try {
+                out.writeUTF("Zip path " + e.getMessage() + " not found");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        } catch (ArchiveException e) {
+            try {
+                out.writeUTF("Error extracting" + e.getMessage() + "archive");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+    }
+}
